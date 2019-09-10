@@ -20,4 +20,4 @@ const userSchema = new Schema({
 });
 
 module.exports = User = mongoose.model('user', userSchema);
-//above name is ploralized in database
+//above name is pluralized in database

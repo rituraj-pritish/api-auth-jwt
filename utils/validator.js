@@ -1,17 +1,26 @@
-const { check } = require('express-validator');
+const joi = require('joi');
 
-module.exports = validate = method => {
-  switch (method) {
-    case 'register':
-      return [
-        check('name', 'Name is required').exists(),
-        check('email', 'Invalid Email')
-          .exists()
-          .isEmail(),
-        check(
-          'password',
-          'Please enter a password with 6 or more characters'
-        ).isLength({ min: 6 })
-      ];
+
+module.exports = {
+  validateBody: (schema) => {
+    return (req, res, next) => {
+
+      const result = joi.validate(req.body, schema);
+
+      if (result.error) {
+        return res.status(400).json(result.error);
+      }
+
+      // if (!req.value) { req.value = {}; }
+      // req.value['body'] = result.value;
+      next();
+    }
+  },
+
+  schemas: {
+    authSchema: joi.object().keys({
+      email: joi.string().email().required(),
+      password: joi.string().min(6).required()
+    })
   }
-};
+}

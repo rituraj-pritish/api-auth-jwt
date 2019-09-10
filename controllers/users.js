@@ -9,8 +9,7 @@ signToken = user => {
   return jwt.sign(
     {
       iss: 'auth-api', //optional
-      sub: user.id,
-      iat: Date.now() //optional
+      sub: user.id
     },
     jwtSecret,
     { expiresIn: 60 * 60 * 60 }
@@ -19,7 +18,6 @@ signToken = user => {
 
 module.exports = {
   register: async (req, res, next) => {
-    console.log(chalk.yellow(JSON.stringify(req.body)));
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -56,5 +54,16 @@ module.exports = {
     }
   },
 
-  login: async (req, res, next) => {}
+  login: async (req, res, next) => {
+    const token = signToken(req.user);
+    res.json({token});
+  },
+
+  secret: async (req, res, next) => {
+    console.log(chalk.yellow('yuppp'));
+  },
+
+  current_user: async (req, res, next) => {
+    res.send(req.user);
+  }
 };
