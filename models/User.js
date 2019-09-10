@@ -5,8 +5,14 @@ const userSchema = new Schema({
   provider: String,
   providerID: String,
   name: String,
-  email: String,
-  password: String,
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
   created: {
     type: Date,
     default: Date.now
@@ -14,3 +20,4 @@ const userSchema = new Schema({
 });
 
 module.exports = User = mongoose.model('user', userSchema);
+//above name is ploralized in database

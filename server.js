@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const chalk = require('chalk');
 const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 
 connectDB();
 const app = express();
