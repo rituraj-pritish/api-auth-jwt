@@ -1,10 +1,8 @@
 const joi = require('joi');
 
-
 module.exports = {
-  validateBody: (schema) => {
+  validateBody: schema => {
     return (req, res, next) => {
-
       const result = joi.validate(req.body, schema);
 
       if (result.error) {
@@ -14,13 +12,19 @@ module.exports = {
       // if (!req.value) { req.value = {}; }
       // req.value['body'] = result.value;
       next();
-    }
+    };
   },
 
   schemas: {
     authSchema: joi.object().keys({
-      email: joi.string().email().required(),
-      password: joi.string().min(6).required()
+      email: joi
+        .string()
+        .email()
+        .required(),
+      password: joi
+        .string()
+        .min(6)
+        .required()
     })
   }
-}
+};

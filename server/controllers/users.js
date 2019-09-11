@@ -28,7 +28,7 @@ module.exports = {
     const { name, email, password } = req.body;
 
     try {
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({ 'local.email': email });
       if (existingUser) {
         return res
           .status(400)
@@ -36,13 +36,15 @@ module.exports = {
       }
 
       const user = new User({
-        name,
-        email,
-        password
+        methods: ['local'],
+        local: {
+          email: email,
+          password: password
+        }
       });
 
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
+      user.local.password = await bcrypt.hash(password, salt);
 
       await user.save();
 
@@ -61,6 +63,7 @@ module.exports = {
 
   secret: async (req, res, next) => {
     console.log(chalk.yellow('yuppp'));
+    res.json(req.user);
   },
 
   current_user: async (req, res, next) => {
@@ -73,7 +76,7 @@ module.exports = {
     res.cookie('access_token', token, {
       httpOnly: true
     });
-    console.log('GoogleOauth');
-    res.status(200).json({ success: true });
+
+    res.status(200).json({ success: true, token });
   }
 };

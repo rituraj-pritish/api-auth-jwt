@@ -14,7 +14,7 @@ router.post(
 );
 
 //@route    POST /users/login
-//@desc     login new user
+//@desc     login user
 //@access   PUBLIC
 router.post(
   '/login',
@@ -23,6 +23,9 @@ router.post(
   UsersController.login
 );
 
+//@route    GET /users/auth/google
+//@desc     google oauth
+//@access   PUBLIC
 router.get(
   '/auth/google',
   passport.authenticate('google', {
@@ -39,17 +42,8 @@ router.get(
   UsersController.googleOAuth
 );
 
-//@route    GET /users/login
-//@desc     get secret
-//@access   PRIVATE
-router.get(
-  '/secret',
-  passport.authenticate('jwt', { session: false }),
-  UsersController.secret
-);
-
-//@route    GET /users/login
-//@desc     get secret
+//@route    GET /users/current_user
+//@desc     get current user
 //@access   PRIVATE
 router.get(
   '/current_user',
