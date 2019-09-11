@@ -9,8 +9,8 @@ const connectDB = async function() {
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true
-
     });
+
     console.log(chalk.green('db connected'));
   } catch (error) {
     console.log(chalk.red(error.message));

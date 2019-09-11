@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const {validateBody,schemas} = require('../utils/validator');
+const { validateBody, schemas } = require('../utils/validator');
 const UsersController = require('../controllers/users');
 const passport = require('passport');
 
 //@route    POST /users/register
 //@desc     register new user
 //@access   PUBLIC
-router.post('/register', validateBody(schemas.authSchema), UsersController.register);
+router.post(
+  '/register',
+  validateBody(schemas.authSchema),
+  UsersController.register
+);
 
 //@route    POST /users/login
 //@desc     login new user
@@ -17,6 +21,22 @@ router.post(
   validateBody(schemas.authSchema),
   passport.authenticate('local', { session: false }),
   UsersController.login
+);
+
+router.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    session: false,
+    scope: ['profile', 'email']
+  })
+);
+
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    session: false
+  }),
+  UsersController.googleOAuth
 );
 
 //@route    GET /users/login

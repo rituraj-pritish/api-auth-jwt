@@ -56,7 +56,7 @@ module.exports = {
 
   login: async (req, res, next) => {
     const token = signToken(req.user);
-    res.json({token});
+    res.json({ token });
   },
 
   secret: async (req, res, next) => {
@@ -65,5 +65,15 @@ module.exports = {
 
   current_user: async (req, res, next) => {
     res.send(req.user);
+  },
+
+  googleOAuth: async (req, res, next) => {
+    //generate token
+    const token = signToken(req.user);
+    res.cookie('access_token', token, {
+      httpOnly: true
+    });
+    console.log('GoogleOauth');
+    res.status(200).json({ success: true });
   }
 };

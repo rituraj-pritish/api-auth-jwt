@@ -2,16 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  provider: String,
-  providerID: String,
+  methods: [String],
   name: String,
-  email: {
-    type: String,
-    required: true
+  local: {
+    email: String,
+    password: String
   },
-  password: {
-    type: String,
-    required: true
+  google: {
+    id: String,
+    email: String
   },
   created: {
     type: Date,
