@@ -37,6 +37,7 @@ module.exports = {
 
       const user = new User({
         methods: ['local'],
+        name: name,
         local: {
           email: email,
           password: password

@@ -4,16 +4,21 @@
   "description": "api authentication",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon index"
+    "server": "nodemon server/index",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"  "
   },
   "author": "RP",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "chalk": "^2.4.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "express-validator": "^6.2.0",
+    "http-proxy-middleware": "^0.20.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.0",

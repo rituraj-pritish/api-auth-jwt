@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 
 connectDB();
 const app = express();
@@ -14,6 +15,7 @@ if (!process.env.NODE_ENV === 'test') {
 }
 
 app.use(express.json({ extended: false }));
+app.use(cors());
 
 app.use(passport.initialize());
 require('./services/passport');

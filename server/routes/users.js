@@ -9,7 +9,7 @@ const passport = require('passport');
 //@access   PUBLIC
 router.post(
   '/register',
-  validateBody(schemas.authSchema),
+  validateBody(schemas.registerSchema),
   UsersController.register
 );
 
@@ -18,7 +18,7 @@ router.post(
 //@access   PUBLIC
 router.post(
   '/login',
-  validateBody(schemas.authSchema),
+  validateBody(schemas.loginSchema),
   passport.authenticate('local', { session: false }),
   UsersController.login
 );
