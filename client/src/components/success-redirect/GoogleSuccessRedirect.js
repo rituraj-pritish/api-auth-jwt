@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { connect } from 'react-redux';
 import { oAuth } from '../../actions/auth';
 import { Redirect } from 'react-router-dom';
@@ -7,11 +7,9 @@ import { Redirect } from 'react-router-dom';
 //if token is not accessed, return wnt wrong message
 
 const GoogleSuccessRedirect = ({ oAuth }) => {
-  let redirect = false;
   useEffect(() => {
     oAuth();
-    redirect = true;
-  }, []);
+  });
   return <Redirect to='/' />;
 };
 

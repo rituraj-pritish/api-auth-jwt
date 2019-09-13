@@ -27,7 +27,6 @@ export const register = data => async dispatch => {
 
 export const login = data => async dispatch => {
   try {
-    console.log('data', data);
     const res = await axios.post('/users/login', data);
 
     dispatch({
@@ -45,15 +44,12 @@ export const login = data => async dispatch => {
 
 export const oAuth = () => {
   const token = localStorage.getItem('JWT_TOKEN');
-  console.log('action-creator ran');
-  console.log('token', token);
   //login and register are same
   return {
     type: OAUTH_LOGIN,
     payload: token
   };
 
-  console.log('after return');
 };
 
 export const logout = data => async dispatch => {
@@ -64,7 +60,6 @@ export const logout = data => async dispatch => {
       type: LOGOUT_USER
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: AUTH_ERROR,
       payload: 'Not logged in'
