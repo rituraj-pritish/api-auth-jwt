@@ -1,23 +1,40 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import NavBar from './NavBar';
 import Homepage from './Homepage';
 import Dashboard from './Dashboard';
 import Form from './form/Form';
+import CustomError from './CustomError';
+import GoogleSuccessRedirect from './success-redirect/GoogleSuccessRedirect';
 
-const auth = false
-
-const App = () => {
+const App = ({ error, isAuthenticated }) => {
   return (
     <Router>
-      <div>
-        <NavBar />
+      <NavBar />
+      <div className='container'>
         <Route exact path='/' component={Homepage} />
-        <Route exact path='/dashboard' component={auth ? Dashboard : Form} />
+        <Route
+          exact
+          path='/dashboard'
+          component={isAuthenticated ? Dashboard : Form}
+        />
+        <Route
+          exact
+          path='/success-redirect'
+          component={GoogleSuccessRedirect}
+        />
+
+        <CustomError error={error} />
       </div>
     </Router>
   );
 };
 
-export default App;
+const mapStateToProps = state => ({
+  error: state.auth.errorMessage,
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps)(App);

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register, login } from '../../actions/auth';
+import { register, login, oAuth} from '../../actions/auth';
 
-import './Form.style.css';
+import './Form.style.scss';
 
-const Form = ({ register, login }) => {
+const Form = ({ register, login}) => {
+  console.log('calling oath from form');
+  oAuth();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -35,7 +36,7 @@ const Form = ({ register, login }) => {
 
   const handleSignIn = async e => {
     e.preventDefault();
-    login({email, password});
+    login({ email, password });
     setFormData({
       name: '',
       email: '',
@@ -53,7 +54,7 @@ const Form = ({ register, login }) => {
     : 'right-panel-active';
 
   return (
-    <div className={`container ${containerClass} `} id='container'>
+    <div className={`main-container ${containerClass} `} id='container'>
       <div className='form-container sign-up-container'>
         <form onSubmit={handleSignUp}>
           <h1>Create Account</h1>
@@ -104,7 +105,7 @@ const Form = ({ register, login }) => {
             <a href='/users/auth/facebook' className='social'>
               <i className='fab fa-facebook-f'></i>
             </a>
-            <a href='/users/auth/google' className='social'>
+            <a href='/users/auth/google' className='social' >
               <i className='fab fa-google'></i>
             </a>
           </div>
@@ -152,5 +153,5 @@ const Form = ({ register, login }) => {
 
 export default connect(
   null,
-  { register, login }
+  { register, login, oAuth}
 )(Form);

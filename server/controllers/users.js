@@ -62,13 +62,13 @@ module.exports = {
     res.json({ token });
   },
 
-  secret: async (req, res, next) => {
-    console.log(chalk.yellow('yuppp'));
-    res.json(req.user);
-  },
-
   current_user: async (req, res, next) => {
     res.send(req.user);
+  },
+
+  logout: async (req, res, next) => {
+    req.logout();
+    res.send('logged out');
   },
 
   googleOAuth: async (req, res, next) => {
@@ -78,6 +78,18 @@ module.exports = {
       httpOnly: true
     });
 
-    res.status(200).json({ success: true, token });
+    const htmlWithEmbeddedJWT = `
+    <html>
+      <script>
+        // Save JWT to localStorage
+        window.localStorage.setItem('JWT_TOKEN', '${token}');
+        // Redirect browser to root of application
+        window.location.href = '/success-redirect';
+      </script>
+    </html>
+    `;
+
+    // res.json({token});
+    res.send(htmlWithEmbeddedJWT);
   }
 };

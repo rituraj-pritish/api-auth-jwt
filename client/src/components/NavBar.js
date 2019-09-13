@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-const NavBar = ({isAuthenticated}) => {
-  console.log(isAuthenticated);
+import { logout } from '../actions/auth';
+
+const NavBar = ({ isAuthenticated, logout }) => {
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-dark' style={{marginBottom: '30px'}}>
+    <nav
+      className='navbar navbar-expand-lg navbar-dark bg-dark'
+      style={{ marginBottom: '30px' }}
+    >
       <Link className='navbar-brand' to='/'>
         <img
           src=''
@@ -25,19 +29,20 @@ const NavBar = ({isAuthenticated}) => {
           </li>
         </ul>
 
-
-          <ul className='nav navbar-nav ml-auto'>
-          {isAuthenticated ? 
+        <ul className='nav navbar-nav ml-auto'>
+          {isAuthenticated ? (
             <li className='nav item'>
-              <Link to='/users/logout' className='nav-link'>
+              <Link onClick={() => logout} to='/users/logout' className='nav-link'>
                 Logout
               </Link>
-            </li> :
+            </li>
+          ) : (
             <li className='nav-item'>
-            <Link to='/dashboard' className='nav-link'>
-              Sign In/ Sign UP
-            </Link>
-          </li>}
+              <Link to='/dashboard' className='nav-link'>
+                Sign In/ Sign UP
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
@@ -45,6 +50,6 @@ const NavBar = ({isAuthenticated}) => {
 };
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
-})
+});
 
 export default connect(mapStateToProps)(NavBar);

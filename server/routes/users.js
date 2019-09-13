@@ -51,4 +51,13 @@ router.get(
   UsersController.current_user
 );
 
+//@route    POST /users/logout
+//@desc     logout user
+//@access   PRIVATE
+router.post(
+  '/logout',
+  passport.authenticate('jwt', { session: false }),
+  UsersController.logout
+);
+
 module.exports = router;
