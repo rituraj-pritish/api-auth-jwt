@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "api authentication",
   "main": "server.js",
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.9.0"
+  },
   "scripts": {
     "server": "nodemon server/index",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"  "
+    "dev": "concurrently \"npm run server\" \"npm run client\"  ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "RP",
   "license": "ISC",
