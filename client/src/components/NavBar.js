@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { logout } from '../actions/auth';
 
-const NavBar = ({ isAuthenticated, logout }) => {
+const NavBar = ({ isAuthenticated, logout, token }) => {
   return (
     <nav
       className='navbar navbar-expand-lg navbar-dark bg-dark'
@@ -32,13 +32,17 @@ const NavBar = ({ isAuthenticated, logout }) => {
         <ul className='nav navbar-nav ml-auto'>
           {isAuthenticated ? (
             <li className='nav item'>
-              <Link onClick={() => logout} to='/users/logout' className='nav-link'>
+              <Link
+                onClick={() => logout(token)}
+                to='/users/logout'
+                className='nav-link'
+              >
                 Logout
               </Link>
             </li>
           ) : (
             <li className='nav-item'>
-              <Link to='/dashboard' className='nav-link'>
+              <Link to='/sign' className='nav-link'>
                 Sign In/ Sign UP
               </Link>
             </li>
@@ -49,7 +53,11 @@ const NavBar = ({ isAuthenticated, logout }) => {
   );
 };
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  token: state.auth.token
 });
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(
+  mapStateToProps,
+  { logout }
+)(NavBar);

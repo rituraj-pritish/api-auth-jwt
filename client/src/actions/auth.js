@@ -44,29 +44,27 @@ export const login = data => async dispatch => {
 };
 
 export const oAuth = () => {
-  
-    const token = localStorage.getItem('JWT_TOKEN');
+  const token = localStorage.getItem('JWT_TOKEN');
   console.log('action-creator ran');
   console.log('token', token);
   //login and register are same
-  return{
+  return {
     type: OAUTH_LOGIN,
     payload: token
   };
 
   console.log('after return');
-  
 };
 
-
-export const logout = () => async dispatch => {
+export const logout = data => async dispatch => {
   try {
-    await axios.post('/users/logout');
+    localStorage.removeItem('JWT_TOKEN');
+    // await axios.post('/users/logout',data);
     dispatch({
       type: LOGOUT_USER
     });
-    localStorage.removeItem('JWT_TOKEN');
   } catch (error) {
+    console.log(error);
     dispatch({
       type: AUTH_ERROR,
       payload: 'Not logged in'

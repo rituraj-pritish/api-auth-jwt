@@ -12,8 +12,7 @@ const GoogleSuccessRedirect = ({ oAuth }) => {
     oAuth();
     redirect = true;
   }, []);
-  return <Redirect to='/' />
-  
+  return <Redirect to='/' />;
 };
 
 export default connect(

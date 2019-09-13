@@ -6,9 +6,11 @@ import {
   LOGOUT_USER
 } from '../actions/types';
 
+const jwtToken = localStorage.getItem('JWT_TOKEN');
+
 const INITIAL_STATE = {
-  isAuthenticated: false,
-  token: '',
+  token: jwtToken ,
+  isAuthenticated: jwtToken ? true : false,
   errorMessage: ''
 };
 
@@ -16,7 +18,6 @@ export const authReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case REGISTER_USER:
-      console.log('register-success');
 
       return {
         ...state,
@@ -25,7 +26,6 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         errorMessage: ''
       };
     case LOGIN_USER:
-      console.log('login-user');
       return {
         ...state,
         token: payload.token,
@@ -33,20 +33,21 @@ export const authReducer = (state = INITIAL_STATE, action) => {
         errorMessage: ''
       };
     case LOGOUT_USER:
-    console.log('logout-user ran');
-      return {
-        ...INITIAL_STATE
-      };
-    case OAUTH_LOGIN:
-      console.log('oauth login');
       return {
         ...state,
-        token: payload.token,
+        isAuthenticated: false,
+        token: null,
+        errorMessage: ''
+
+      };
+    case OAUTH_LOGIN:
+      return {
+        ...state,
+        token: payload,
         isAuthenticated: true,
         errorMessage: ''
       };
     case AUTH_ERROR:
-      console.log('error ran', payload);
       return {
         ...state,
         errorMessage: payload
