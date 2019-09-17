@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 connectDB();
 const app = express();
