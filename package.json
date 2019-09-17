@@ -2,12 +2,13 @@
   "name": "api-auth",
   "version": "1.0.0",
   "description": "api authentication",
-  "main": "server.js",
+  "main": "index.js",
   "engines": {
     "node": "10.16.3",
-    "npm": "6.9.0"
+    "npm": "6.11.3"
   },
   "scripts": {
+    "start": "node server/index",
     "server": "nodemon server/index",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"  ",
